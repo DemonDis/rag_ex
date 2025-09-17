@@ -1,3 +1,4 @@
+import json
 # backend/main.py
 
 from fastapi import FastAPI, UploadFile, File, Request, Response
@@ -56,8 +57,11 @@ async def ask(request: QuestionRequest, req: Request):
         "Access-Control-Allow-Headers": "*",
     }
 
+    # Extract the actual answer string from the dictionary returned by ask_question
+    answer_text = answer.get("answer", "Could not retrieve answer.") # Safely get answer, provide fallback
+
     return Response(
-        content=f'{{"answer": "{answer}"}}',
+        content=f'{{"answer": "{answer_text}"}}', # Send only the answer string to the frontend
         media_type="application/json",
         headers=headers,
     )
