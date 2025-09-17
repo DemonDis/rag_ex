@@ -43,9 +43,9 @@ docker run -d \
 
 ### Запуск языковой модели через Ollama
 Загружает и запускает модель
-- nomic-embed-text - **274MB**
-- mistral:7b-instruct - **4.1GB**
-- qwen2:0.5b-instruct - **352MB**
+- nomic-embed-text - векторизация текста **274MB**
+- mistral:7b-instruct - генерация ответов **4.1GB**
+- qwen2:0.5b-instruct - для быстрых запросов **352MB**
 ```bash
 docker exec ollama ollama pull qwen2:0.5b-instruct
 ```

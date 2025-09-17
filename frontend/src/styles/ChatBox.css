@@ -1,0 +1,66 @@
+/* frontend/src/styles/ChatBox.css */
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 18px;
+  max-width: 70%;
+  word-wrap: break-word;
+  font-size: 0.95rem;
+}
+
+.user-message {
+  background-color: #3498db;
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.bot-message {
+  background-color: #ecf0f1;
+  color: #333;
+  align-self: flex-start;
+  border: 1px solid #ddd;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #eee;
+  border-radius: 0 0 8px 8px;
+}
+
+.input-area input,
+.input-area textarea {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: none;
+}
+
+.input-area button {
+  background-color: #2ecc71;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 0 20px;
+}
+
+.input-area button:hover {
+  background-color: #27ae60;
+}

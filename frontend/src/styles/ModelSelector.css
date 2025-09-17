@@ -1,0 +1,32 @@
+/* frontend/src/styles/ModelSelector.css */
+
+.model-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.model-selector button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  text-align: center;
+}
+
+.model-selector button:hover {
+  background-color: #d0d0d0;
+}
+
+.model-selector button.active {
+  background-color: #3498db;
+  color: white;
+  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
+}
