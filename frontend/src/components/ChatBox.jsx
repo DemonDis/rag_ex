@@ -16,8 +16,9 @@ const ChatBox = ({ selectedModel }) => {
     setMessages(prev => [...prev, userMessage]);
     setInput('');
 
+    let res; // Declare res outside the try block
     try {
-      const res = await fetch('http://localhost:8000/api/ask', { // ← ✅ ИСПРАВЛЕНО!
+      res = await fetch('http://localhost:8000/api/ask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +38,28 @@ const ChatBox = ({ selectedModel }) => {
       setMessages(prev => [...prev, botMessage]);
     } catch (err) {
       console.error("Fetch error:", err);
-      setMessages(prev => [...prev, { text: "Ошибка сети: " + err.message, isUser: false }]);
+      let errorMessage = "Ошибка сети: " + err.message;
+
+      if (res) {
+        errorMessage = `HTTP error! status: ${res.status} ${res.statusText}. `;
+        if (err instanceof SyntaxError) {
+          // Attempt to get raw response text if JSON parsing failed
+          res.text().then(text => {
+            errorMessage += `Malformed JSON response: ${text}`;
+            setMessages(prev => [...prev, { text: errorMessage, isUser: false }]);
+          }).catch(() => {
+            // If .text() also fails, use the original error message
+            errorMessage += "Could not parse response text.";
+            setMessages(prev => [...prev, { text: errorMessage, isUser: false }]);
+          });
+        } else {
+          // If res is defined but it's not a SyntaxError, use the original error message
+          setMessages(prev => [...prev, { text: errorMessage + err.message, isUser: false }]);
+        }
+      } else {
+        // If res is not defined (e.g., network error before fetch even completes)
+        setMessages(prev => [...prev, { text: errorMessage, isUser: false }]);
+      }
     }
   };
 

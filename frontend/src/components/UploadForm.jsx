@@ -1,3 +1,5 @@
+// frontend/src/components/UploadForm.jsx
+
 import React from 'react';
 import '../styles/UploadForm.css';
 
@@ -25,7 +27,7 @@ const UploadForm = ({ onFileUploaded }) => {
         alert('Ошибка загрузки');
       }
     } catch (err) {
-      alert('Ошибка сети');
+      alert('Ошибка сети: ' + err.message);
     }
   };
 
