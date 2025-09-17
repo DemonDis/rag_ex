@@ -6,11 +6,12 @@ import os
 VECTOR_STORE_PATH = "../documents/chunks.json"
 
 
-def save_chunks(chunks, metadata):
-    """Сохраняет список чанков и метаданных в JSON"""
+def save_chunks(chunks, metadata, embeddings):
+    """Сохраняет чанки, метаданные и эмбеддинги"""
     data = {
         "chunks": chunks,
-        "metadata": metadata
+        "metadata": metadata,
+        "embeddings": embeddings  # ← НОВОЕ: массив векторов
     }
     os.makedirs(os.path.dirname(VECTOR_STORE_PATH), exist_ok=True)
     with open(VECTOR_STORE_PATH, 'w', encoding='utf-8') as f:
@@ -18,9 +19,9 @@ def save_chunks(chunks, metadata):
 
 
 def load_chunks():
-    """Загружает чанки и метаданные из JSON"""
+    """Загружает чанки, метаданные и эмбеддинги"""
     if not os.path.exists(VECTOR_STORE_PATH):
-        return [], []
+        return [], [], []
     with open(VECTOR_STORE_PATH, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    return data["chunks"], data["metadata"]
+    return data["chunks"], data["metadata"], data.get("embeddings", [])
