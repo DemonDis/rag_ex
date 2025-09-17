@@ -16,8 +16,6 @@ class QuestionRequest(BaseModel):
 
 # ✅ Разрешённые домены — с учётом слешей
 ALLOWED_ORIGINS = {
-    "http://localhost:3000",
-    "http://localhost:3000/",
     "http://localhost:5173",
     "http://localhost:5173/",
 }
@@ -51,17 +49,17 @@ async def ask(request: QuestionRequest, req: Request):
     answer = ask_question(request.question, request.model)
 
     headers = {
-        "Access-Control-Allow-Origin": origin,  # ✅ ДИНАМИЧЕСКИЙ — совпадает с реальным Origin
+        "Access-Control-Allow-Origin": origin,
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers": "*",
     }
 
-    # Extract the actual answer string from the dictionary returned by ask_question
-    answer_text = answer.get("answer", "Could not retrieve answer.") # Safely get answer, provide fallback
+
+    answer_text = answer.get("answer", "Could not retrieve answer.")
 
     return Response(
-        content=f'{{"answer": "{answer_text}"}}', # Send only the answer string to the frontend
+        content=f'{{"answer": "{answer_text}"}}', 
         media_type="application/json",
         headers=headers,
     )
@@ -76,7 +74,7 @@ async def upload_file(file: UploadFile = File(...), req: Request = None):
 
     origin = req.headers.get("origin") if req else None
     if origin not in ALLOWED_ORIGINS:
-        origin = "http://localhost:5173"  # fallback
+        origin = "http://localhost:5173"
 
     headers = {
         "Access-Control-Allow-Origin": origin,
@@ -95,7 +93,7 @@ async def upload_file(file: UploadFile = File(...), req: Request = None):
 async def list_models(req: Request):
     origin = req.headers.get("origin")
     if origin not in ALLOWED_ORIGINS:
-        origin = "http://localhost:5173"  # fallback
+        origin = "http://localhost:5173"
 
     headers = {
         "Access-Control-Allow-Origin": origin,

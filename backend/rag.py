@@ -42,7 +42,7 @@ def get_embedding(text, model=EMBEDDING_MODEL):
         return embedding
     except Exception as e:
         print(f"❌ Ошибка при генерации эмбеддинга: {e}")
-        return [0.0] * 768  # fallback размерность nomic-embed-text
+        return [0.0] * 768 
 
 
 def cosine_similarity(a, b):
